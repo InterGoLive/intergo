@@ -1,0 +1,5 @@
+export const USER_LOGGED_IN = 'USER_LOGGED_IN'
+export const USER_LOGGED_OUT = 'USER_LOGGED_OUT'
+export const SET_MATCHES = 'SET_MATCHES'
+export const LOADING_USER = 'LOADING_USER'
+export const USER_LOADED = 'USER_LOADED'

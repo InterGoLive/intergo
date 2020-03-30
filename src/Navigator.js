@@ -1,0 +1,91 @@
+import React, { Component } from 'react'
+import {
+    StyleSheet,
+    Image
+} from 'react-native'
+
+import {createAppContainer} from 'react-navigation';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import {createStackNavigator} from 'react-navigation-stack';
+import Icon from 'react-native-vector-icons/SimpleLineIcons'
+import Matches from './screens/Matches'
+import Profile from './screens/Profile'
+import Login from './screens/Login'
+import Register from './screens/Register'
+
+const authRouter = createStackNavigator({
+    Login: {screen: Login, navigationOptions: { title: 'Login' }},
+    Register: {screen: Register, navigationOptions: { title: 'Register' }},
+}, {
+    initialRouteName: 'Login'
+})
+
+const loginOrProfileRouter = createSwitchNavigator({
+    Profile: Profile,
+    Auth: authRouter
+}, {
+    initialRouteName: 'Auth'
+})
+
+const MainRoutes = {
+    Matches: {
+        name: 'Matches',
+        screen: Matches,
+        navigationOptions: {
+            title: 'Início',
+            tabBarIcon: ({ tintColor }) => 
+                <Image source={require('../assets/images/tab_home.png')} style={styles.imageHome} />
+        }
+    }, 
+    RankingTeams: {
+        name: 'Ranking',
+        screen: Matches,
+        navigationOptions: {
+            title: 'Classificação',
+            tabBarIcon: ({ tintColor }) => 
+                <Image source={require('../assets/images/tab_ranking.png')} style={styles.imageRanking} />
+        }
+    }, 
+    RankingFans: {
+        name: 'Fans',
+        screen: Matches,
+        navigationOptions: {
+            title: 'Torcidômetro',
+            tabBarIcon: ({ tintColor }) => 
+                <Icon name='chart' size={30} color={ tintColor } />
+        }
+    }, 
+    Profile: {
+        name: 'Profile',
+        screen: loginOrProfileRouter,
+        navigationOptions: {
+            title: 'Perfil',
+            tabBarIcon: ({ tintColor: color }) => 
+                <Icon name='user' size={30} color={ color } />
+        }
+    }
+}
+
+const MainConfig = {
+    initialRouteName: 'Matches',
+    tabBarOptions: {
+        showLabel: true
+    }
+}
+
+const MainNavigator = createBottomTabNavigator(MainRoutes, MainConfig)
+
+const styles = StyleSheet.create({
+    imageHome: {
+        width: 26.45,
+        height: 26.45,
+        resizeMode: 'contain'
+    },
+    imageRanking: {
+        width: 22.92,
+        height: 22.92,
+        resizeMode: 'contain'
+    }
+})
+
+export default MainNavigator
