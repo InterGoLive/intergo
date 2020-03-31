@@ -4,28 +4,12 @@ import {
     Image
 } from 'react-native'
 
-import {createAppContainer} from 'react-navigation';
+import {createSwitchNavigator, createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import Matches from './screens/Matches'
 import Profile from './screens/Profile'
-import Login from './screens/Login'
-import Register from './screens/Register'
-
-const authRouter = createStackNavigator({
-    Login: {screen: Login, navigationOptions: { title: 'Login' }},
-    Register: {screen: Register, navigationOptions: { title: 'Register' }},
-}, {
-    initialRouteName: 'Login'
-})
-
-const loginOrProfileRouter = createSwitchNavigator({
-    Profile: Profile,
-    Auth: authRouter
-}, {
-    initialRouteName: 'Auth'
-})
 
 const MainRoutes = {
     Matches: {
@@ -57,7 +41,7 @@ const MainRoutes = {
     }, 
     Profile: {
         name: 'Profile',
-        screen: loginOrProfileRouter,
+        screen: Profile,
         navigationOptions: {
             title: 'Perfil',
             tabBarIcon: ({ tintColor: color }) => 
@@ -69,7 +53,9 @@ const MainRoutes = {
 const MainConfig = {
     initialRouteName: 'Matches',
     tabBarOptions: {
-        showLabel: true
+        showLabel: true,
+        activeTintColor: '#22D48D',
+        inactiveTintColor: '#8B8C8E',
     }
 }
 
@@ -88,4 +74,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default MainNavigator
+export default createAppContainer(MainNavigator);
