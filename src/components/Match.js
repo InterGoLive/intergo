@@ -8,12 +8,14 @@ import {
     Dimensions
 } from 'react-native'
 
-class Game extends Component {
+class Match extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image source={this.props.imageTeam1} style={styles.image}/>
-                <Image source={this.props.imageTeam2} style={styles.image}/>
+                {/* <Image source={this.props.imageTeam1} style={styles.image}/>
+                <Image source={this.props.imageTeam2} style={styles.image}/> */}
+                <Text>{this.props.team1}</Text>
+                <Text>{this.props.team2}</Text>
             </View>
         )
     }
@@ -34,4 +36,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Game
+export default Match

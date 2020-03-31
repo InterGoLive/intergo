@@ -1,27 +1,26 @@
 import React, {Component} from 'react'
 import HeaderHome from '../components/HeaderHome'
 import  {StyleSheet, FlatList, View } from 'react-native'
-import Game from '../components/Game'
-import FirebaseService from '../services/firebaseService'
+import Match from '../components/Match'
+import firestore from '@react-native-firebase/firestore'
 
 class Matches extends Component {
     state = {
-        // games: [{
-        //     id: Math.random(),
-        //     imageTeam1: require('../../assets/images/icon.png'),
-        //     imageTeam2: require('../../assets/images/icon.png')
-        // }, {
-        //     id: Math.random(),
-        //     imageTeam1: require('../../assets/images/icon.png'),
-        //     imageTeam2: require('../../assets/images/icon.png')
-        // }]
-
         matches: null
     }
 
     componentDidMount() {
-        //FirebaseService.getDataList('matches', dataIn => this.setState({matches: dataIn}), 10);
+        // const ref = firestore().collection('games')
+        // ref.onSnapshot(querySnapshot => {
+        //     const list = [];
+        //     querySnapshot.forEach(doc => {
+        //         list.push(doc.data())  
+        //     });
+
+        //     this.setState({matches: list})
+        // });
     }
+
 
     render() {
         const {matches} = this.state
@@ -32,7 +31,7 @@ class Matches extends Component {
                     data={this.state.matches}
                     keyExtractor={item => `${item.id}`}
                     renderItem={({ item }) => 
-                        <Game key={item.id} {...item} />} />
+                        <Match key={item.id} {...item} />} />
             </View>
         )
     }

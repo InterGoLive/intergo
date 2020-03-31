@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "298048867529",
+    "firebase_url": "https://intergolive-2020.firebaseio.com",
+    "project_id": "intergolive-2020",
+    "storage_bucket": "intergolive-2020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298048867529:android:bee6ee92e77fe36c141118",
+        "android_client_info": {
+          "package_name": "com.intergo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298048867529-vmcdsbkv07a4m1tevkdjipsdge8gnpum.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.intergo",
+            "certificate_hash": "04be752b98f974419da5905bc87c1eb252c9c324"
+          }
+        },
+        {
+          "client_id": "298048867529-3tligvv2l0cmlpp5l8s7i9gt4c0mmr19.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAATtR9CdN2RKfmLvY8rtiw15JaCPcUtCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298048867529-3tligvv2l0cmlpp5l8s7i9gt4c0mmr19.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "298048867529-nku4kfm3vnfh6jub95nc3sif43o05e2d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.intergo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
