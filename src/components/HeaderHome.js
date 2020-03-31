@@ -44,16 +44,16 @@ class HeaderHome extends Component {
      },
      title1: {
          color: '#FFF',
-        //  fontFamily: 'Teko-Light',
+         fontFamily: 'Teko-Light',
          marginTop: 20,
          marginLeft: 20,
          fontSize: 48
      },
      title2: {
         color: '#06EFB3',
-        // fontFamily: 'Teko-Light',
-         marginTop: 20,
-         fontSize: 48
+        fontFamily: 'Teko-Light',
+        marginTop: 20,
+        fontSize: 48
     }
  })
 

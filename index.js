@@ -2,7 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import {AppRegistry} from 'react-native';
 // import NavigatorLogin from './src/NavigatorLogin'
-import NavigatorLogin from './src/Navigator'
+import NavigatorLogin from './src/NavigatorLogin'
 
 import {name as appName} from './app.json';
 

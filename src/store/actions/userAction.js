@@ -5,6 +5,8 @@ import {
     USER_LOADED 
 } from './actionsTypes'
 
+import auth from '@react-native-firebase/auth';
+
 export const userLogged = user => {
     return {
         type: USER_LOGGED_IN,
@@ -21,8 +23,17 @@ export const logout = () => {
 export const createUser = user => {
     return dispatch => {
         //criar usuario
+        register(user.email, user.password)
     }
 }
+
+async function register(email, password) {
+    try {
+        await auth().createUserWithEmailAndPassword(email, password);
+    } catch (e) {
+      console.error(e.message);
+    }
+  }
 
 export const loadingUser = () => {
     return {
