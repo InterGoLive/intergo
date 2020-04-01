@@ -2,33 +2,21 @@ import React, {Component} from 'react'
 import HeaderHome from '../components/HeaderHome'
 import  {StyleSheet, FlatList, View } from 'react-native'
 import Match from '../components/Match'
-import firestore from '@react-native-firebase/firestore'
+import { fetchMatches } from '../store/actions/matchesAction'
+import { connect } from 'react-redux'
+import { Alert } from 'react-native'
 
 class Matches extends Component {
-    state = {
-        matches: null
+    componentDidMount = () => {
+        this.props.onFetchMatches()
     }
-
-    componentDidMount() {
-        // const ref = firestore().collection('games')
-        // ref.onSnapshot(querySnapshot => {
-        //     const list = [];
-        //     querySnapshot.forEach(doc => {
-        //         list.push(doc.data())  
-        //     });
-
-        //     this.setState({matches: list})
-        // });
-    }
-
 
     render() {
-        const {matches} = this.state
         return (
             <View style={styles.container}>
                 <HeaderHome/>
                 <FlatList
-                    data={this.state.matches}
+                    data={this.props.matches}
                     keyExtractor={item => `${item.id}`}
                     renderItem={({ item }) => 
                         <Match key={item.id} {...item} />} />
@@ -46,4 +34,16 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Matches
+const mapStateToProps = ({ matches }) => {
+    return {
+        matches: matches.matches
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchMatches: () => dispatch(fetchMatches())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Matches)

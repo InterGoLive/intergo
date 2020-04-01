@@ -1,4 +1,5 @@
 import { SET_MATCHES } from './actionsTypes'
+import firestore from '@react-native-firebase/firestore'
 
 export const setMatches = matches => {
     return {
@@ -10,6 +11,17 @@ export const setMatches = matches => {
 
 export const fetchMatches = () => {
     return dispatch => {
-        //buscar jogos
+        const ref = firestore().collection('games')
+        ref.onSnapshot(querySnapshot => {
+            const list = [];
+            querySnapshot.forEach(doc => {
+                list.push({
+                    ...doc.data(),
+                    id: doc.id
+                })  
+            });
+
+            dispatch(setMatches(list))
+        });
     }
 }

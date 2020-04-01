@@ -4,7 +4,7 @@ import {
     LOADING_USER, 
     USER_LOADED 
 } from './actionsTypes'
-
+import { setMessage } from './messageAction'
 import auth from '@react-native-firebase/auth';
 
 export const userLogged = user => {
@@ -20,15 +20,17 @@ export const logout = () => {
     }
 }
 
-
-  
-
 export const createUser = user => {
     return dispatch => {
         //criar usuario
         auth().createUserWithEmailAndPassword(user.email, user.password)
-        .then()
-        .catch(function(error) {
+        .then(() => {
+            dispatch(setMessage({
+                title: 'Sucesso',
+                text: 'Usuário criado'
+            }))
+        })
+        .catch(error => {
             var errorCode = error.code;
             var errorMessage = error.message;
         });
@@ -45,8 +47,6 @@ export const doLogout = () => {
         });
     }
 }
-
-
 
 export const loadingUser = () => {
     return {
@@ -67,12 +67,18 @@ export const login = user => {
         .then(() => {
             dispatch(userLogged(user))
             dispatch(userLoaded())
+            dispatch(setMessage({
+                title: 'Sucesso',
+                text: 'Login realizado'
+            }))
         })
-        .catch(function(error) {
+        .catch(error => {
             // Handle Errors here.
             var errorCode = error.code;
-            var errorMessage = error.message;
-            // ...
+            dispatch(setMessage({
+                title: 'Erro',
+                text: error.message
+            }))
           });
     }
 }

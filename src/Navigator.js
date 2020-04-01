@@ -8,6 +8,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import Login from './screens/Login'
 import Register from './screens/Register'
+import Splash from './screens/Splash'
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import Matches from './screens/Matches'
 import Profile from './screens/Profile'
@@ -39,7 +40,7 @@ const mainRouter = {
             title: 'Torcidômetro',
             headerShown: false,
             tabBarIcon: ({ tintColor }) => 
-                <Icon name='chart' size={30} color={ tintColor } />
+                <Icon name='chart' size={20} color={ tintColor } />
         }
     }, 
     Profile: {
@@ -48,20 +49,20 @@ const mainRouter = {
         navigationOptions: {
             title: 'Perfil',
             tabBarIcon: ({ tintColor: color }) => 
-                <Icon name='user' size={30} color={ color } />
+                <Icon name='user' size={20} color={ color } />
         }
     }
 }
 
 const styles = StyleSheet.create({
     imageHome: {
-        width: 26.45,
-        height: 26.45,
+        width: 20,
+        height: 20,
         resizeMode: 'contain'
     },
     imageRanking: {
-        width: 22.92,
-        height: 22.92,
+        width: 20,
+        height: 20,
         resizeMode: 'contain'
     }
 })
@@ -72,6 +73,9 @@ const mainRouterConfig = {
         showLabel: true,
         activeTintColor: '#22D48D',
         inactiveTintColor: '#8B8C8E',
+        style: {
+            backgroundColor: '#101317',
+          }
     },
     navigationOptions: {
         headerShown: false
@@ -81,11 +85,12 @@ const mainRouterConfig = {
 const MainNavigator = createBottomTabNavigator(mainRouter, mainRouterConfig)
 
 const router = createStackNavigator({
+    Splash: {screen: Splash, navigationOptions: { title: 'Splash', headerShown: false }},
     Login: {screen: Login, navigationOptions: { title: 'Login', headerShown: false }},
     Register: {screen: Register, navigationOptions: { title: 'Register', headerShown: false }},
     MainNavigator
 }, {
-    initialRouteName: 'Login',
+    initialRouteName: 'Splash',
     tabBarOptions: {
         showLabel: true,
         activeTintColor: '#22D48D',
