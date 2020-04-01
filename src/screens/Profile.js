@@ -11,9 +11,15 @@ import { Gravatar } from 'react-native-gravatar'
 import HeaderProfile from '../components/HeaderProfile'
 
 class Profile extends Component {
+
+    componentDidUpdate = prevProps => {
+        if(prevProps.email != null && this.props.email == null) {
+            this.props.navigation.navigate('Login')
+        }
+    }
+
     logout = () => {
         this.props.onLogout()
-        this.props.navigation.navigate('Login')
     }
 
     render() {
