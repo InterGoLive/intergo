@@ -18,7 +18,7 @@ class Login extends Component {
 
     componentDidUpdate = prevProps => {
         if(prevProps.isLoading && !this.props.isLoading) {
-            this.props.navigation.navigate('Profile')
+            this.props.navigation.navigate('MainNavigator')
         }
     }
 
@@ -42,6 +42,7 @@ class Login extends Component {
                     onChangeText={ email => this.setState({ email })}/>
 
                 <TextInput placeholder='Senha' style={styles.input}
+                    autoFocus={false}
                     secureTextEntry={true} value={this.state.password}
                     onChangeText={ password => this.setState({ password })}/>
 

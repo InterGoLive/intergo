@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { logout } from '../store/actions/userAction'
+import { logout, doLogout } from '../store/actions/userAction'
 import {
     StyleSheet,
     Text,
@@ -13,7 +13,7 @@ import HeaderProfile from '../components/HeaderProfile'
 class Profile extends Component {
     logout = () => {
         this.props.onLogout()
-        this.props.navigation.navigate('Auth')
+        this.props.navigation.navigate('Login')
     }
 
     render() {
@@ -76,7 +76,7 @@ const mapStateToProps = ({ user }) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLogout: () => dispatch(logout())
+        onLogout: () => dispatch(doLogout())
     }
 }
 

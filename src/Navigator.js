@@ -3,20 +3,22 @@ import {
     StyleSheet,
     Image
 } from 'react-native'
-
-import {createSwitchNavigator, createAppContainer} from 'react-navigation';
-import {createBottomTabNavigator} from 'react-navigation-tabs';
+import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import Login from './screens/Login'
+import Register from './screens/Register'
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import Matches from './screens/Matches'
 import Profile from './screens/Profile'
 
-const MainRoutes = {
+const mainRouter = {
     Matches: {
         name: 'Matches',
         screen: Matches,
         navigationOptions: {
             title: 'Início',
+            headerShown: false,
             tabBarIcon: ({ tintColor }) => 
                 <Image source={require('../assets/images/tab_home.png')} style={styles.imageHome} />
         }
@@ -35,6 +37,7 @@ const MainRoutes = {
         screen: Matches,
         navigationOptions: {
             title: 'Torcidômetro',
+            headerShown: false,
             tabBarIcon: ({ tintColor }) => 
                 <Icon name='chart' size={30} color={ tintColor } />
         }
@@ -50,17 +53,6 @@ const MainRoutes = {
     }
 }
 
-const MainConfig = {
-    initialRouteName: 'Matches',
-    tabBarOptions: {
-        showLabel: true,
-        activeTintColor: '#22D48D',
-        inactiveTintColor: '#8B8C8E',
-    }
-}
-
-const MainNavigator = createBottomTabNavigator(MainRoutes, MainConfig)
-
 const styles = StyleSheet.create({
     imageHome: {
         width: 26.45,
@@ -74,4 +66,31 @@ const styles = StyleSheet.create({
     }
 })
 
-export default createAppContainer(MainNavigator);
+const mainRouterConfig = {
+    initialRouteName: 'Matches',
+    tabBarOptions: {
+        showLabel: true,
+        activeTintColor: '#22D48D',
+        inactiveTintColor: '#8B8C8E',
+    },
+    navigationOptions: {
+        headerShown: false
+    }
+}
+
+const MainNavigator = createBottomTabNavigator(mainRouter, mainRouterConfig)
+
+const router = createStackNavigator({
+    Login: {screen: Login, navigationOptions: { title: 'Login', headerShown: false }},
+    Register: {screen: Register, navigationOptions: { title: 'Register', headerShown: false }},
+    MainNavigator
+}, {
+    initialRouteName: 'Login',
+    tabBarOptions: {
+        showLabel: true,
+        activeTintColor: '#22D48D',
+        inactiveTintColor: '#8B8C8E',
+    }
+})
+
+export default createAppContainer(router);

@@ -20,20 +20,33 @@ export const logout = () => {
     }
 }
 
+
+  
+
 export const createUser = user => {
     return dispatch => {
         //criar usuario
-        register(user.email, user.password)
+        auth().createUserWithEmailAndPassword(user.email, user.password)
+        .then()
+        .catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+        });
     }
 }
 
-async function register(email, password) {
-    try {
-        await auth().createUserWithEmailAndPassword(email, password);
-    } catch (e) {
-      console.error(e.message);
+export const doLogout = () => {
+    return dispatch => {
+        //criar usuario
+        auth().signOut().then(function() {
+            dispatch(logout())
+        }).catch(function(error) {
+            // An error happened.
+        });
     }
-  }
+}
+
+
 
 export const loadingUser = () => {
     return {
@@ -50,10 +63,16 @@ export const userLoaded = () => {
 export const login = user => {
     return dispatch => {
         dispatch(loadingUser())
-        //chamar validacao de usuario
-        //user.name = nome
-        //user.email = email
-        dispatch(userLogged(user))
-        dispatch(userLoaded())
+        auth().signInWithEmailAndPassword(user.email, user.password)
+        .then(() => {
+            dispatch(userLogged(user))
+            dispatch(userLoaded())
+        })
+        .catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ...
+          });
     }
 }
