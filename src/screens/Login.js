@@ -10,12 +10,6 @@ import {
 } from 'react-native'
 
 class Login extends Component {
-    state = {
-        name: 'Temporario',
-        email: '',
-        password: ''
-    }
-
     componentDidUpdate = prevProps => {
         if(prevProps.isLoading && !this.props.isLoading) {
             this.props.navigation.navigate('MainNavigator')
@@ -23,7 +17,7 @@ class Login extends Component {
     }
 
     login = () => {
-        this.props.onLogin({ ...this.state })
+        this.props.onLogin({...this.state})
     }
 
     render() {
@@ -38,12 +32,12 @@ class Login extends Component {
 
                 <TextInput placeholder='Email' style={styles.input}
                     autoFocus={false} keyboardType='email-address'
-                    value={this.state.email}
+                    value={this.props.email}
                     onChangeText={ email => this.setState({ email })}/>
 
                 <TextInput placeholder='Senha' style={styles.input}
                     autoFocus={false}
-                    secureTextEntry={true} value={this.state.password}
+                    secureTextEntry={true} value={this.props.password}
                     onChangeText={ password => this.setState({ password })}/>
 
                 <TouchableOpacity onPress={this.login} style={styles.buttom}>

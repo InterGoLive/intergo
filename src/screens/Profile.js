@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { logout, doLogout } from '../store/actions/userAction'
+import { doLogout } from '../store/actions/userAction'
 import {
     StyleSheet,
     Text,
@@ -13,7 +13,7 @@ import HeaderProfile from '../components/HeaderProfile'
 class Profile extends Component {
 
     componentDidUpdate = prevProps => {
-        if(prevProps.email != null && this.props.email == null) {
+        if(prevProps.email != '' && this.props.email == '') {
             this.props.navigation.navigate('Login')
         }
     }
@@ -28,7 +28,7 @@ class Profile extends Component {
             <View style={styles.container}>
                 <HeaderProfile />
                 <Gravatar options={options} style={styles.avatar} />
-                <Text style={styles.nickname}>{this.props.name}</Text>
+                {/* <Text style={styles.nickname}>{this.props.user.name}</Text> */}
                 <Text style={styles.email}>{this.props.email}</Text>
                 <TouchableOpacity onPress={this.logout} 
                     style={styles.buttom}>
@@ -75,8 +75,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ user }) => {
     return {
-        email: user.email,
-        name: user.name
+        email: user.email
     }
 }
 

@@ -10,12 +10,16 @@ import {
 
 class Match extends Component {
     render() {
+
+        let image1 =  { uri: this.props.imageUrlTeam1 }
+        let image2 = { uri: this.props.imageUrlTeam2 }
         return (
             <View style={styles.container}>
-                {/* <Image source={this.props.imageTeam1} style={styles.image}/>
-                <Image source={this.props.imageTeam2} style={styles.image}/> */}
-                <Text>{this.props.team1}</Text>
-                <Text>{this.props.team2}</Text>
+                <Image source={image1} style={styles.image}/>
+                <Text> vs </Text>
+                <Image source={image2} style={styles.image}/>
+                {/* <Text>{this.props.team1}</Text>
+                <Text>{this.props.team2}</Text> */}
             </View>
         )
     }

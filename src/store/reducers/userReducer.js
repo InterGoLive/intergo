@@ -6,8 +6,10 @@ import {
 } from '../actions/actionsTypes'
 
 const initialState = {
-    name: null,
-    email: null,
+    name: '',
+    email: '',
+    photoURL: '',
+    password: '',
     isLoading: false
 }
 
@@ -16,15 +18,20 @@ const reducer = (state = initialState, action) => {
         case USER_LOGGED_IN:
             return {
                 ...state, 
-                name: action.payload.name,
-                email: action.payload.email
+                name: action.payload.displayName,
+                photoURL: action.payload.photoURL,
+                email: action.payload.email,
+                password:''
+                
             }
 
         case USER_LOGGED_OUT:
             return {
                 ...state, 
-                name: null,
-                email: null
+                name: '',
+                email: '',
+                photoURL: '',
+                password: ''
             }
 
         case LOADING_USER:

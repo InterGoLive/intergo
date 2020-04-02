@@ -5,7 +5,7 @@ import {
     USER_LOADED 
 } from './actionsTypes'
 import { setMessage } from './messageAction'
-import auth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth'
 
 export const userLogged = user => {
     return {
@@ -27,7 +27,7 @@ export const createUser = user => {
         .then(() => {
             dispatch(setMessage({
                 title: 'Sucesso',
-                text: 'Usuário criado'
+                text: 'Usuário criado - '
             }))
         })
         .catch(error => {
@@ -64,12 +64,12 @@ export const login = user => {
     return dispatch => {
         dispatch(loadingUser())
         auth().signInWithEmailAndPassword(user.email, user.password)
-        .then(() => {
-            dispatch(userLogged(user))
+        .then(userCredential => {
+            dispatch(userLogged(userCredential.user))
             dispatch(userLoaded())
             dispatch(setMessage({
                 title: 'Sucesso',
-                text: 'Login realizado'
+                text: userCredential.user.email
             }))
         })
         .catch(error => {
