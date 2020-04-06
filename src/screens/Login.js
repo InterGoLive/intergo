@@ -8,6 +8,14 @@ import {
     TouchableOpacity,
     TextInput
 } from 'react-native'
+// import auth from '@react-native-firebase/auth'
+// import { 
+//     LoginManager,
+//     AccessToken
+//  } from 'react-native-fbsdk'
+
+//  import InstagramLogin from 'react-native-instagram-login'
+
 
 class Login extends Component {
     componentDidUpdate = prevProps => {
@@ -20,28 +28,48 @@ class Login extends Component {
         this.props.onLogin({...this.state})
     }
 
+    // loginWithFacebook = () => {
+    //     LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+    //         function(result) {
+    //           if (result.isCancelled) {
+    //             alert('Login was cancelled');
+    //           } else {
+    //             AccessToken.getCurrentAccessToken().then(data => {
+    //                 const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken)
+    //                 firebase.auth().signInWithCredential(credential).then(() => {
+
+    //                 })
+    //             })
+    //           }
+    //         },
+    //         function(error) {
+    //           alert('Login failed with error: ' + error);
+    //         }
+    //       );
+    // }
+
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.welcomeText1}>Seja Bem-Vindx</Text>
                 <View style={styles.rowContainer}>
-                    <Text style={styles.welcomeText2}>ao </Text>
-                    <Text style={styles.welcomeText3}>Inter</Text>
-                    <Text style={styles.welcomeText4}>GO!</Text>
+                    <Text style={styles.welcomeText1}>ao </Text>
+                    <Text style={styles.welcomeText2}>Inter</Text>
+                    <Text style={styles.welcomeText3}>GO!</Text>
                 </View>
 
-                <TextInput placeholder='Email' style={styles.input}
+                <TextInput placeholder='Email' placeholderTextColor='#8B8C8E' style={styles.input}
                     autoFocus={false} keyboardType='email-address'
                     value={this.props.email}
                     onChangeText={ email => this.setState({ email })}/>
 
-                <TextInput placeholder='Senha' style={styles.input}
+                <TextInput placeholder='Senha' placeholderTextColor='#8B8C8E' style={styles.input}
                     autoFocus={false}
                     secureTextEntry={true} value={this.props.password}
                     onChangeText={ password => this.setState({ password })}/>
 
-                <TouchableOpacity onPress={this.login} style={styles.buttom}>
-                    <Text style={styles.buttomText}>ENTRAR</Text>
+                <TouchableOpacity onPress={this.login} style={styles.button}>
+                    <Text style={styles.buttonText}>ENTRAR</Text>
                 </TouchableOpacity> 
 
                 <View style={styles.rowContainer}>
@@ -50,6 +78,20 @@ class Login extends Component {
                         style={styles.register}>Cadastre-se</Text>
                     <Text style={styles.forget}>Esqueceu a senha?</Text>
                 </View>
+
+                {/* <View>
+                    <TouchableOpacity onPress={()=> this.instagramLogin.show()}>
+                        <Text style={{color: 'white'}}>Login</Text>
+                    </TouchableOpacity>
+                    <InstagramLogin
+                        ref={ref => (this.instagramLogin = ref)}
+                        appId='292577138395482'
+                        appSecret='ba3fe08289552d1d5dccc8ba2f6b5361'
+                        redirectUrl='your-redirect-Url'
+                        scopes={['user_profile', 'user_media']}
+                        onLoginSuccess={ this.setIgToken }
+                        onLoginFailure={(data) => console.log(data)}/>
+                </View> */}
 
             </View>
         )
@@ -71,14 +113,9 @@ const styles = StyleSheet.create({
     welcomeText2: {
         fontSize: 31,
         color: '#FFF',
-        fontFamily: 'Overpass-Thin',
-    },
-    welcomeText3: {
-        fontSize: 31,
-        color: '#FFF',
         fontFamily: 'Overpass-Bold',
     },
-    welcomeText4: {
+    welcomeText3: {
         fontSize: 31,
         color: '#06EFB3',
         fontFamily: 'Overpass-Bold',
@@ -87,7 +124,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center'
     },
-    buttom: {
+    button: {
         width: 342,
         height: 61,
         borderRadius: 6,
@@ -97,7 +134,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#22D48D'
     },
-    buttomText: {
+    facebookButton: {
+        marginTop: 50,
+    },
+    buttonText: {
         fontSize: 18,
         color: '#FFF',
         fontFamily: 'Overpass-Bold',
@@ -116,14 +156,14 @@ const styles = StyleSheet.create({
     register: {
         marginTop: 50,
         fontSize: 16,
-        color: '#FFFFFF80',
+        color: '#8B8C8E',
         fontFamily: 'Overpass-Regular',
     },
     forget: {
         marginLeft: 40,
         marginTop: 50,
         fontSize: 16,
-        color: '#FFFFFF80',
+        color: '#8B8C8E',
         fontFamily: 'Overpass-Regular',
     }
 })

@@ -14,7 +14,7 @@ class HeaderHome extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.rowContainer}>
-                    <Image source={icon} style={styles.image} />
+                    {/* <Image source={icon} style={styles.image} /> */}
                     <Text style={styles.title1}>Inter</Text>
                     <Text style={styles.title2}>GO!</Text>
 
@@ -35,11 +35,11 @@ class HeaderHome extends Component {
     },
      rowContainer: {
          flexDirection: 'row',
-         alignItems: 'center'
+         alignItems: 'center',
      },
      image: {
-         height: 30,
-         width: 30,
+         height: 40,
+         width: 40,
          resizeMode: 'contain'
      },
      title1: {

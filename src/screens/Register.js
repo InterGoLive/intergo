@@ -4,11 +4,13 @@ import {
     Text,
     View,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    Image
 } from 'react-native'
 import { createUser } from '../store/actions/userAction'
 import HeaderRegister from '../components/HeaderRegister'
 import { connect } from 'react-redux'
+import ImagePicker from 'react-native-image-picker';
 
 
 class Register extends Component {
@@ -16,38 +18,91 @@ class Register extends Component {
         name: '',
         email: '',
         password: '',
-        confirmationPassword: ''
+        confirmationPassword: '',
+        image: null
+    }
+    
+
+    takeProfileImage = () => {
+
+        const options = {
+            title: 'Selecione uma imagem',
+            customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+            storageOptions: {
+              skipBackup: true,
+              path: 'images',
+            },
+          };
+
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+          
+            if (response.didCancel) {
+              console.log('User cancelled image picker');
+            } else if (response.error) {
+              console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+              console.log('User tapped custom button: ', response.customButton);
+            } else {
+              const source = { uri: response.uri };
+          
+              // You can also display the image using data:
+              // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+          
+              this.setState({
+                image: { uri: 'data:image/jpeg;base64,' + response.data },
+              });
+            }
+          });
     }
 
     render() {
         return(
             <View style={styles.container} >
                 <HeaderRegister/>
-                <Text style={styles.text1}>Estamos quase lá,</Text>
+                    <Text style={styles.text1}>Estamos quase lá</Text>
+                    <Text style={styles.text2}>Digite os seus dados abaixo</Text>
+                    <Text style={styles.text2}>ou faça login com o Facebook</Text>
+                    <View style={styles.container2} >
+                    
+                    <TextInput placeholder='Nome completo' placeholderTextColor='#8B8C8E' style={styles.input}
+                        autoFocus={false}
+                        value={this.state.name}
+                        onChangeText={ name => this.setState({ name })}/>
 
-                <TextInput placeholder='Nome completo' style={styles.input}
-                    autoFocus={false}
-                    value={this.state.name}
-                    onChangeText={ name => this.setState({ name })}/>
+                    <TextInput placeholder='Email' placeholderTextColor='#8B8C8E' style={styles.input}
+                        autoFocus={false}
+                        value={this.state.email}
+                        onChangeText={ email => this.setState({ email })}/>
 
-                <TextInput placeholder='Email' style={styles.input}
-                    autoFocus={false}
-                    value={this.state.email}
-                    onChangeText={ email => this.setState({ email })}/>
+                    <TextInput placeholder='Senha' placeholderTextColor='#8B8C8E' style={styles.input}
+                        secureTextEntry={true} value={this.state.password}
+                        onChangeText={ password => this.setState({ password })}/>
 
-                <TextInput placeholder='Senha' style={styles.input}
-                    secureTextEntry={false} value={this.state.password}
-                    onChangeText={ password => this.setState({ password })}/>
+                    <TextInput placeholder='Repita sua senha' placeholderTextColor='#8B8C8E' style={styles.input}
+                        secureTextEntry={true} value={this.state.confirmationPassword}
+                        onChangeText={ confirmationPassword => this.setState({ confirmationPassword })}/>
 
-                <TextInput placeholder='Repita sua senha' style={styles.input}
-                    secureTextEntry={true} value={this.state.confirmationPassword}
-                    onChangeText={ confirmationPassword => this.setState({ confirmationPassword })}/>
+                    <View style={styles.containerImage} onPress={() => { this.takeProfileImage() }} >
+                        <Image 
+                            source={ this.state.image }
+                            style={styles.image}/>
+                    </View>   
+                    
 
-                <TouchableOpacity 
-                    onPress={() => { this.props.onCreateUser(this.state) }} 
-                    style={styles.buttom}>
-                    <Text style={styles.buttomText}>Ok</Text>
-                </TouchableOpacity> 
+                    <TouchableOpacity 
+                        onPress={() => { this.takeProfileImage() }}
+                        style={styles.buttom}>
+                        <Text style={styles.buttomText}>Anexar</Text>
+                    </TouchableOpacity>  
+
+                    <TouchableOpacity 
+                        onPress={() => { this.props.onCreateUser(this.state) }} 
+                        style={styles.buttom}>
+                        <Text style={styles.buttomText}>Ok</Text>
+                    </TouchableOpacity> 
+
+                </View>
             </View>
         )
     }
@@ -57,8 +112,41 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         alignItems: 'center',
+        backgroundColor: '#16191D',
+        paddingLeft:20
+
+    },
+    container2: {
+        flex: 1,
+        alignItems: 'center',
         backgroundColor: '#16191D'
 
+    },
+    containerImage: {
+        flex: 1,
+        width: 342,
+        height: 168,
+        marginTop: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#1F2329'
+
+    },
+    image: {
+        flex: 1,
+        width: 342,
+        height: 168,
+    },
+    text1: {
+        fontSize: 31,
+        marginTop: 50,
+        color: '#FFF',
+        fontFamily: 'Overpass-Thin',
+    },
+    text2: {
+        fontSize: 20,
+        color: '#FFF',
+        fontFamily: 'Overpass-Thin',
     },
     buttom: {
         width: 342,

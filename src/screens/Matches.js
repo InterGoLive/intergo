@@ -16,6 +16,7 @@ class Matches extends Component {
             <View style={styles.container}>
                 <HeaderHome/>
                 <FlatList
+                    // horizontal={true}
                     data={this.props.matches}
                     keyExtractor={item => `${item.id}`}
                     renderItem={({ item }) => 

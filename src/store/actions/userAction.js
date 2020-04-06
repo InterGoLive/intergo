@@ -6,6 +6,9 @@ import {
 } from './actionsTypes'
 import { setMessage } from './messageAction'
 import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore'
+import storage from '@react-native-firebase/storage'
+import fileSystem from 'react-native-fs'
 
 export const userLogged = user => {
     return {
@@ -22,13 +25,32 @@ export const logout = () => {
 
 export const createUser = user => {
     return dispatch => {
-        //criar usuario
         auth().createUserWithEmailAndPassword(user.email, user.password)
-        .then(() => {
+        .then(userCredential => {
+            let userSave = {
+                email: userCredential.user.email,
+                name: user.name,
+            }
+
             dispatch(setMessage({
                 title: 'Sucesso',
-                text: 'Usuário criado - '
+                text: 'Usuário criado - ' + userCredential.user.uid
             }))
+
+            // fileSystem.writeFile('/tmp/imgeProfile.jpg', image, 'base64').then(res => {
+            //     firestore().collection('users').doc(userCredential.user.uid).set(userSave);
+            //     storage().ref().child('users').child(userCredential.user.uid).child(profile.jpeg).put({
+                    
+            //     })
+            // })
+            // .catch(err => {
+            //     dispatch(setMessage({
+            //         title: 'Erro',
+            //         text: 'Erro ao salvar arquivo - ' + err.message
+            //     }))
+            // });
+
+            
         })
         .catch(error => {
             var errorCode = error.code;

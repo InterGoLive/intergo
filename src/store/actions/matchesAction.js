@@ -11,7 +11,7 @@ export const setMatches = matches => {
 
 export const fetchMatches = () => {
     return dispatch => {
-        const ref = firestore().collection('games')
+        const ref = firestore().collection('matches')
         ref.onSnapshot(querySnapshot => {
             const list = [];
             querySnapshot.forEach(doc => {
