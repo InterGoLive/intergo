@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import HeaderHome from '../components/HeaderHome'
-import  {StyleSheet, FlatList, View, Text, Image } from 'react-native'
-import Match from '../components/Match'
+import  {StyleSheet, FlatList, View, Text, Image, TouchableOpacity } from 'react-native'
+import MatchLive from '../components/MatchLive'
 import Modality from '../components/Modality'
+import Match from '../components/Match'
 import { fetchMatches } from '../store/actions/matchesAction'
 import { connect } from 'react-redux'
-import { Alert } from 'react-native'
 import arrowLeft from '../../assets/images/arrow_left.png'
 import arrowRight from '../../assets/images/arrow_right.png'
+import { setMessage } from '../store/actions/messageAction'
 
 class Matches extends Component {
     componentDidMount = () => {
@@ -46,7 +47,18 @@ class Matches extends Component {
                 name: 'Handebol',
                 image: ''
             }
-        ]
+        ],
+        modalitySelected: -1
+    }
+
+    onMatchSelected(item) {
+        console.log('Selected Item :',item);
+    }
+
+    onModalitylected(index) {
+        this.setState({
+            modalitySelected: index
+        });
     }
 
     render() {
@@ -65,12 +77,17 @@ class Matches extends Component {
                         horizontal={true}
                         data={this.state.modalities}
                         keyExtractor={item => `${item.id}`}
-                        renderItem={({ item }) => 
-                            <Modality key={item.id} {...item} />} />
+                        extraData={this.state.modalitySelected}
+                        renderItem={({item, index}) => (
+                            <TouchableOpacity onPress={ () => this.onModalitylected(index)}>
+                                <Modality key={item.id} {...item} index={index} />
+                            </TouchableOpacity>
+                        )}
+                        />
                 </View>
-                <View style={ styles.containerMatchesList } >
+                <View style={ styles.containerMatchesLiveList } >
                     <View style={ styles.containerHorizontalListHeader } >
-                        <Text style={ styles.textTitle } > Jogos ao vivo </Text>
+                        <Text style={ styles.textTitle } > Ao vivo </Text>
                         <View style={ { flexDirection: 'row' } } >
                             <Image source={ arrowLeft } style={ styles.imageLeft } />
                             <Image source={ arrowRight } style={ styles.imageRigth } />
@@ -80,8 +97,30 @@ class Matches extends Component {
                         horizontal={true}
                         data={this.props.matches}
                         keyExtractor={item => `${item.id}`}
-                        renderItem={({ item }) => 
-                            <Match key={item.id} {...item} />} />
+                        renderItem={({item}) => (
+                            <TouchableOpacity onPress={ () => this.onMatchSelected(item)}>
+                                <MatchLive key={item.id} {...item} />
+                            </TouchableOpacity>
+                        )}
+                        />
+                </View>
+                <View style={ styles.containerMatchesList } >
+                    <View style={ styles.containerHorizontalListHeader } >
+                        <Text style={ styles.textTitle } > Próximos ou encerrados </Text>
+                        <View style={ { flexDirection: 'row' } } >
+                            <Image source={ arrowLeft } style={ styles.imageLeft } />
+                            <Image source={ arrowRight } style={ styles.imageRigth } />
+                        </View>
+                    </View>
+                    <FlatList
+                        data={this.props.matches}
+                        keyExtractor={item => `${item.id}`}
+                        renderItem={({item}) => (
+                            <TouchableOpacity onPress={ () => this.onMatchSelected(item)}>
+                                <Match key={item.id} {...item} />
+                            </TouchableOpacity>
+                        )}
+                        />
                 </View>
             </View>
         )
@@ -100,11 +139,18 @@ const styles = StyleSheet.create({
         marginRight: 20,
         marginBottom: 20
     },
-    containerMatchesList: {
+    containerMatchesLiveList: {
         borderBottomWidth: 0.5,
         borderColor: '#8B8C8E',
         justifyContent: 'center',
         height: '25%',
+        paddingTop: 20,
+        paddingBottom: 20
+    },
+    containerMatchesList: {
+        borderBottomWidth: 0,
+        borderColor: '#8B8C8E',
+        justifyContent: 'center',
         paddingTop: 20,
         paddingBottom: 20
     },
@@ -147,7 +193,11 @@ const mapStateToProps = ({ matches }) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchMatches: () => dispatch(fetchMatches())
+        onFetchMatches: () => dispatch(fetchMatches()),
+        onMessage: (title, text) => dispatch(setMessage({
+            title: title,
+            text: text
+        }))
     }
 }
 

@@ -11,6 +11,7 @@ import Register from './screens/Register'
 import Splash from './screens/Splash'
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import Matches from './screens/Matches'
+import RankingTeams from './screens/RankingTeams'
 import Profile from './screens/Profile'
 
 const mainRouter = {
@@ -26,7 +27,7 @@ const mainRouter = {
     }, 
     RankingTeams: {
         name: 'Ranking',
-        screen: Matches,
+        screen: RankingTeams,
         navigationOptions: {
             title: 'Classificação',
             tabBarIcon: ({ tintColor }) => 

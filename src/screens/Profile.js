@@ -8,7 +8,8 @@ import {
     TouchableOpacity
 } from 'react-native'
 import { Gravatar } from 'react-native-gravatar'
-import HeaderProfile from '../components/HeaderProfile'
+import Header from '../components/Header'
+import icon from '../../assets/images/header_profile.png'
 
 class Profile extends Component {
 
@@ -26,7 +27,7 @@ class Profile extends Component {
         const options = { email: this.props.email, secure: true }
         return (
             <View style={styles.container}>
-                <HeaderProfile />
+                <Header title={ 'Perfil' } icon={icon} />
                 <Gravatar options={options} style={styles.avatar} />
                 {/* <Text style={styles.nickname}>{this.props.user.name}</Text> */}
                 <Text style={styles.email}>{this.props.email}</Text>
