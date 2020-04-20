@@ -5,7 +5,8 @@ import {
     View,
     Platform,
     Image,
-    Dimensions
+    Dimensions,
+    Alert
 } from 'react-native'
 import iconModality from '../../assets/images/soccer.png'
 
@@ -19,7 +20,7 @@ class Modality extends Component {
         return (
             <View style={[
                 styles.container, 
-                {borderColor: this.props.modalitySelected === this.props.index ? '#22D48D' : '#6B6B6B'}]} >
+                {backgroundColor: this.props.modalitySelected === this.props.index ? '#22D48D' : '#6B6B6B'}]} >
                 <Image style={ styles.image } source={ this.state.image } />
             </View>
         )

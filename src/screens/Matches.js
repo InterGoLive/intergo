@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 import HeaderHome from '../components/HeaderHome'
-import  {StyleSheet, FlatList, View, Text, Image, TouchableOpacity } from 'react-native'
+import  {StyleSheet, FlatList, View, Text, Image, TouchableOpacity, Alert } from 'react-native'
 import MatchLive from '../components/MatchLive'
 import Modality from '../components/Modality'
 import Match from '../components/Match'
 import { fetchMatches } from '../store/actions/matchesAction'
+import { fetchModalities } from '../store/actions/modalitiesAction'
 import { connect } from 'react-redux'
 import arrowLeft from '../../assets/images/arrow_left.png'
 import arrowRight from '../../assets/images/arrow_right.png'
@@ -12,42 +13,11 @@ import { setMessage } from '../store/actions/messageAction'
 
 class Matches extends Component {
     componentDidMount = () => {
-        this.props.onFetchMatches()
+        this.props.onFetchMatches(null)
+        this.props.onFetchModalities()
     }
 
     state = {
-        modalities: [
-            {
-                id: 0,
-                name: 'Handebol',
-                image: ''
-            },
-            {
-                id: 1,
-                name: 'Handebol',
-                image: ''
-            },
-            {
-                id: 2,
-                name: 'Handebol',
-                image: ''
-            },
-            {
-                id: 3,
-                name: 'Handebol',
-                image: ''
-            },
-            {
-                id: 4,
-                name: 'Handebol',
-                image: ''
-            },
-            {
-                id: 5,
-                name: 'Handebol',
-                image: ''
-            }
-        ],
         modalitySelected: -1
     }
 
@@ -55,10 +25,12 @@ class Matches extends Component {
         console.log('Selected Item :',item);
     }
 
-    onModalitylected(index) {
+    onModalitylected(modality, index) {
         this.setState({
             modalitySelected: index
         });
+
+        this.props.onFetchMatches(modality)
     }
 
     render() {
@@ -73,17 +45,20 @@ class Matches extends Component {
                             <Image source={ arrowRight } style={ styles.imageRigth } />
                         </View>
                     </View>
-                    <FlatList
-                        horizontal={true}
-                        data={this.state.modalities}
-                        keyExtractor={item => `${item.id}`}
-                        extraData={this.state.modalitySelected}
-                        renderItem={({item, index}) => (
-                            <TouchableOpacity onPress={ () => this.onModalitylected(index)}>
-                                <Modality key={item.id} {...item} index={index} />
-                            </TouchableOpacity>
-                        )}
-                        />
+                    <View style={ { flex: 1, alignItems: 'center' } } >
+                        <FlatList
+                            horizontal={true}
+                            data={this.props.modalities}
+                            keyExtractor={item => `${item.id}`}
+                            // extraData={this.state.modalitySelected}
+                            renderItem={({item, index}) => (
+                                <TouchableOpacity onPress={ () => this.onModalitylected(item, index)}>
+                                    <Modality key={item.id} {...item} index={index} modalitySelected={this.state.modalitySelected} />
+                                </TouchableOpacity>
+                            )}
+                            />
+                    </View>
+                    
                 </View>
                 <View style={ styles.containerMatchesLiveList } >
                     <View style={ styles.containerHorizontalListHeader } >
@@ -93,24 +68,26 @@ class Matches extends Component {
                             <Image source={ arrowRight } style={ styles.imageRigth } />
                         </View>
                     </View>
-                    <FlatList
-                        horizontal={true}
-                        data={this.props.matches}
-                        keyExtractor={item => `${item.id}`}
-                        renderItem={({item}) => (
-                            <TouchableOpacity onPress={ () => this.onMatchSelected(item)}>
-                                <MatchLive key={item.id} {...item} />
-                            </TouchableOpacity>
-                        )}
-                        />
+                    <View style={ { flex: 1, alignItems: 'center' } } >
+                        <FlatList
+                            horizontal={true}
+                            data={this.props.matches}
+                            keyExtractor={item => `${item.id}`}
+                            renderItem={({item}) => (
+                                <TouchableOpacity onPress={ () => this.onMatchSelected(item)}>
+                                    <MatchLive key={item.id} {...item} />
+                                </TouchableOpacity>
+                            )}
+                            />
+                    </View>
                 </View>
                 <View style={ styles.containerMatchesList } >
                     <View style={ styles.containerHorizontalListHeader } >
                         <Text style={ styles.textTitle } > Próximos ou encerrados </Text>
-                        <View style={ { flexDirection: 'row' } } >
+                        {/* <View style={ { flexDirection: 'row' } } >
                             <Image source={ arrowLeft } style={ styles.imageLeft } />
                             <Image source={ arrowRight } style={ styles.imageRigth } />
-                        </View>
+                        </View> */}
                     </View>
                     <FlatList
                         data={this.props.matches}
@@ -185,15 +162,17 @@ const styles = StyleSheet.create({
     },
 })
 
-const mapStateToProps = ({ matches }) => {
+const mapStateToProps = ({ matches, modalities }) => {
     return {
-        matches: matches.matches
+        matches: matches.matches,
+        modalities: modalities.modalities
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchMatches: () => dispatch(fetchMatches()),
+        onFetchMatches: modality => dispatch(fetchMatches(modality)),
+        onFetchModalities: () => dispatch(fetchModalities()),
         onMessage: (title, text) => dispatch(setMessage({
             title: title,
             text: text

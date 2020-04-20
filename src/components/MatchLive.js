@@ -52,10 +52,10 @@ class MatchLive extends Component {
                         <Text style={ styles.textScore }  > {this.props.team2Score} </Text>
                         <Image source={image2} style={styles.image}/>
                     </View>
-                    <View style={ { flexDirection: 'row', alignContent: 'center', justifyContent: 'center', marginTop: 5 } }   >
+                    <View style={ { flexDirection: 'row', alignContent: 'center', justifyContent: 'center', marginTop: 10 } }   >
                         <Text style={ styles.textModality }  > {this.props.modality} </Text>  
                         <Text style={ styles.textModality }  >-</Text>  
-                        <Text style={ styles.textModality }  > {this.props.gender} </Text>  
+                        <Text style={ styles.textModality }  > { this.props.gender === 'Masculino' ? 'M':'F'} </Text>  
 
                     </View>
                 </View>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         color: '#fff'
     },
     textModality: {
-        fontSize: 10,
+        fontSize: 12,
         fontFamily: 'Overpass-Regular',
         color: '#fff',
         alignContent: 'center'

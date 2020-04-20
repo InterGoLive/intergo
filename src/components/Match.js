@@ -16,20 +16,24 @@ class Match extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.containerMatch } >
-                    <View style={ { alignItems: 'center' } } >
+                    <View style={ { alignItems: 'center', justifyContent: 'center' } } >
                         <Text style={ styles.textDay }  > {this.props.hour}h </Text>
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textDay }> {this.props.day} </Text>
+                        <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textDay }> {this.props.day.replace(/-Feira/g, '')} </Text>
                     </View>
-                    <View>
-                        <View style={ { flexDirection: 'row' } }   >
-                            <Image source={image1} style={styles.image}/>
-                            <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textTeam }> {this.props.team1} </Text>
+                    <View style={ { height: '80%', width: 2, backgroundColor: '#333943', marginLeft: 5, marginRight: 10 } } />
+                    <View style={ { flex: 1 } }  >
+                        <View style={ { flexDirection: 'row', justifyContent: 'space-between' } } >
+                            <View style={ { flexDirection: 'row' } }   >
+                                <Image source={image1} style={styles.image}/>
+                                <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textTeam }> {this.props.team1} </Text>
+                            </View>
                             <Text style={ styles.textScore }  > {this.props.team1Score} </Text>
-
                         </View>
-                        <View style={ { flexDirection: 'row' } }   >
-                            <Image source={image2} style={styles.image}/>
-                            <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textTeam }> {this.props.team2} </Text>
+                        <View style={ { flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 } } >
+                            <View style={ { flexDirection: 'row' } }   >
+                                <Image source={image2} style={styles.image}/>
+                                <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textTeam }> {this.props.team2} </Text>
+                            </View>
                             <Text style={ styles.textScore }  > {this.props.team2Score} </Text>
                         </View>
                     </View>
@@ -48,17 +52,16 @@ const styles = StyleSheet.create({
     },
     containerMatch: { 
         flex:1, 
-        margin: 15, 
-        padding: 20, 
-        alignItems: 'center', 
-        justifyContent: 'space-between',
+        alignItems: 'center',
         borderColor: '#333943', 
         borderWidth: 2 ,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        padding: 20,
+        width: '95%'
     },
     image: {
-        width: 40,
-        height: 40,
+        width: 50,
+        height: 50,
         resizeMode: 'contain'
     },
     textTeam: {
@@ -67,7 +70,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontFamily: 'Overpass-Regular',
         color: '#fff',
-        width: '60%'
     },
     textDay: {
         fontSize: 12,
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
         color: '#fff'
     },
     textModality: {
-        fontSize: 10,
+        fontSize: 12,
         fontFamily: 'Overpass-Regular',
         color: '#fff',
         alignContent: 'center'
