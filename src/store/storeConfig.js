@@ -8,15 +8,18 @@ import thunk from 'redux-thunk'
 import userReducer from './reducers/userReducer'
 import messageReducer from './reducers/messageReducer'
 import mathesReducer from './reducers/matchesReducer'
+import modalitiesReducer from './reducers/modalitiesReducer'
 import notificationReducer from './reducers/notificationReducers'
-
+import teamsReducer from './reducers/teamsReducer'
 
 
 const reducers = combineReducers({
     user: userReducer,
     message: messageReducer,
     matches: mathesReducer,
-    notification: notificationReducer
+    notification: notificationReducer,
+    teams: teamsReducer,
+    modalities: modalitiesReducer
 
 })
 

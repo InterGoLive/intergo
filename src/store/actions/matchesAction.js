@@ -9,9 +9,14 @@ export const setMatches = matches => {
       
 }
 
-export const fetchMatches = () => {
+export const fetchMatches = (modality) => {
     return dispatch => {
-        const ref = firestore().collection('matches')
+        var ref = null
+        if(modality != null)
+            ref = firestore().collection('matches').where('modality','==',modality.name)
+        else
+            ref = firestore().collection('matches')
+
         ref.onSnapshot(querySnapshot => {
             const list = [];
             querySnapshot.forEach(doc => {

@@ -8,9 +8,11 @@ import {
     Image
 } from 'react-native'
 import { createUser } from '../store/actions/userAction'
-import HeaderRegister from '../components/HeaderRegister'
+import Header from '../components/Header'
 import { connect } from 'react-redux'
 import ImagePicker from 'react-native-image-picker';
+import icon from '../../assets/images/header_register.png'
+
 
 
 class Register extends Component {
@@ -59,7 +61,7 @@ class Register extends Component {
     render() {
         return(
             <View style={styles.container} >
-                <HeaderRegister/>
+                    <Header title={ 'Registro' } icon={icon} />
                     <Text style={styles.text1}>Estamos quase lá</Text>
                     <Text style={styles.text2}>Digite os seus dados abaixo</Text>
                     <Text style={styles.text2}>ou faça login com o Facebook</Text>

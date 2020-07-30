@@ -14,8 +14,8 @@ class HeaderProfile extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.rowContainer}>
-                    <Image source={icon} style={styles.image} />
-                    <Text style={styles.title}>Perfil</Text>
+                    <Image source={this.props.icon} style={styles.image} />
+                    <Text style={styles.title}>{this.props.title}</Text>
                 </View>
             </View>
         )
