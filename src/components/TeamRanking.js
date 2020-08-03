@@ -3,9 +3,7 @@ import {
     StyleSheet,
     Text,
     View,
-    Platform,
-    Image,
-    Dimensions
+    Image
 } from 'react-native'
 
 class TeamRanking extends Component {
@@ -32,8 +30,8 @@ class TeamRanking extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 20,
-        marginBottom: 20,
+        marginTop: 10,
+        marginBottom: 10,
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row'
@@ -45,13 +43,13 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     textScore: {
-        fontSize: 20,
+        fontSize: 18,
         alignSelf: 'center',
         fontFamily: 'Overpass-Regular',
         color: '#fff'
     },
     textTeam: {
-        fontSize: 18,
+        fontSize: 15,
         fontFamily: 'Overpass-Regular',
         color: '#fff',
         marginLeft: 5

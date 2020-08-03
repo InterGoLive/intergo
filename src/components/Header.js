@@ -7,9 +7,7 @@ import {
     Image
 } from 'react-native'
 
-import icon from '../../assets/images/header_profile.png'
-
-class HeaderProfile extends Component {
+class Header extends Component {
     render() {
         return (
             <View style={styles.container}>
@@ -25,17 +23,17 @@ class HeaderProfile extends Component {
  const styles = StyleSheet.create({
      container: {
          marginTop: Platform.OS === 'ios' ? 20 : 0,
-         height: 101,
+         height: '10%',
          borderBottomWidth: 0.5,
          borderColor: '#8B8C8E',
-         width: '100%'
+         width: '100%',
+         justifyContent: "center"
      },
      rowContainer: {
          flexDirection: 'row',
          alignItems: 'center'
      },
      image: {
-         marginTop: 40,
          marginLeft: 61,
          height: 20,
          width: 20,
@@ -44,10 +42,10 @@ class HeaderProfile extends Component {
      title: {
          color: '#FFF',
          fontFamily: 'Overpass-Regular',
+         justifyContent: 'center',
          fontSize: 20,
-         marginTop: 40,
          marginLeft: 10
      }
  })
 
- export default HeaderProfile
+ export default Header

@@ -17,26 +17,6 @@ class MatchLive extends Component {
         let image2 = { uri: this.props.team2ImageURL }
         return (
             <View style={styles.container}>
-                {/* <AnimatedCircularProgress
-                    size={140}
-                    width={2}
-                    fill={50}
-                    rotation={0}
-                    tintColor="#22D48D"
-                    lineCap='square'
-                    padding={20}
-                    backgroundColor="#707070">
-                    {
-                        () => (
-                            <View style={ { flexDirection: 'row', alignContent: 'center', justifyContent: 'center' } } >
-                                <Image source={image1} style={styles.image}/>
-                                <Text style={ {color: '#fff', fontSize:12 } }  > vs </Text>
-                                <Image source={image2} style={styles.image}/>
-                            </View>
-                        )
-                        
-                    }
-                </AnimatedCircularProgress> */}
                 <ProgressBar 
                     progress={0.5} 
                     width={100}
@@ -45,14 +25,14 @@ class MatchLive extends Component {
                     color={'#22D48D'}
                     unfilledColor= {'#707070'}  />
 
-                <View style={ { flex:1, margin: 15, alignItems: 'center' } } >
+                <View style={ { alignItems: 'center', marginTop: 10 } } >
                     <View style={ { flexDirection: 'row' } }   >
                         <Image source={image1} style={styles.image}/>
                         <Text style={ styles.textScore }  > {this.props.team1Score} </Text>
                         <Text style={ styles.textScore }  > {this.props.team2Score} </Text>
                         <Image source={image2} style={styles.image}/>
                     </View>
-                    <View style={ { flexDirection: 'row', alignContent: 'center', justifyContent: 'center', marginTop: 10 } }   >
+                    <View style={ { flexDirection: 'row', alignContent: 'center', justifyContent: 'center', marginTop: 5 } }   >
                         <Text style={ styles.textModality }  > {this.props.modality} </Text>  
                         <Text style={ styles.textModality }  >-</Text>  
                         <Text style={ styles.textModality }  > { this.props.gender === 'Masculino' ? 'M':'F'} </Text>  
@@ -68,7 +48,6 @@ class MatchLive extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         margin: 10,
         alignItems: 'center',
     },
@@ -89,7 +68,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         alignContent: 'center'
     }
-
 
 })
 

@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import Header from '../components/Header'
-import  {StyleSheet, FlatList, View, Text, Image, TouchableOpacity } from 'react-native'
+import  {StyleSheet, FlatList, View, SafeAreaView, TouchableOpacity } from 'react-native'
 import { fetchTeams } from '../store/actions/teamActions'
 import { connect } from 'react-redux'
 import TeamRanking from '../components/TeamRanking'
+import ModalityList from '../components/ModalityList'
 
 class RankingTeams extends Component {
     componentDidMount = () => {
@@ -16,8 +17,9 @@ class RankingTeams extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <Header title={ 'Classificação' } />
+                <ModalityList/>
                 <View style={ { margin: 20 } } >
                     <FlatList
                             data={this.props.teams}
@@ -33,7 +35,7 @@ class RankingTeams extends Component {
                             />
                 </View>
                 
-            </View>
+            </SafeAreaView>
         )
     }
 }

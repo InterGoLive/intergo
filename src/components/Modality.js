@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import {
     StyleSheet,
-    Text,
     View,
-    Platform,
-    Image,
-    Dimensions,
-    Alert
+    Image
 } from 'react-native'
 import iconModality from '../../assets/images/soccer.png'
 
@@ -30,7 +26,6 @@ class Modality extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        margin: 10,
         marginLeft: 20,
         marginRight: 20,
         width: 50,
@@ -49,7 +44,6 @@ const styles = StyleSheet.create({
         fontSize: 10,
         fontFamily: 'Overpass-Regular',
         color: '#fff',
-        marginTop: 5,
         alignContent: 'center'
     }
 
