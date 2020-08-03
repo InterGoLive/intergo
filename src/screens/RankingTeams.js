@@ -19,7 +19,6 @@ class RankingTeams extends Component {
         return (
             <SafeAreaView style={styles.container}>
                 <Header title={ 'Classificação' } />
-                <ModalityList/>
                 <View style={ { margin: 20 } } >
                     <FlatList
                             data={this.props.teams}
