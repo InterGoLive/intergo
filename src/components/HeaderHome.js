@@ -14,6 +14,7 @@ class HeaderHome extends Component {
                     <Text style={styles.title1}>Inter</Text>
                     <Text style={styles.title2}>GO!</Text>
                 </View>
+
             </View>
         )
     }
@@ -21,6 +22,7 @@ class HeaderHome extends Component {
 
  const styles = StyleSheet.create({
     container: {
+        marginTop: Platform.OS === 'ios' ? 20 : 0,
         height: '15%',
         borderBottomWidth: 0,
         borderColor: '#8B8C8E',

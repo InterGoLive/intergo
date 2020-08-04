@@ -5,6 +5,7 @@ import {
     View,
     TouchableOpacity,
     TextInput,
+    SafeAreaView,
     Image
 } from 'react-native'
 import { createUser } from '../store/actions/userAction'
@@ -12,8 +13,6 @@ import Header from '../components/Header'
 import { connect } from 'react-redux'
 import ImagePicker from 'react-native-image-picker';
 import icon from '../../assets/images/header_register.png'
-
-
 
 class Register extends Component {
     state = {
@@ -60,52 +59,54 @@ class Register extends Component {
 
     render() {
         return(
-            <View style={styles.container} >
+            <SafeAreaView style={styles.container} >
+                <ScrollView>
                     <Header title={ 'Registro' } icon={icon} />
-                    <Text style={styles.text1}>Estamos quase lá</Text>
-                    <Text style={styles.text2}>Digite os seus dados abaixo</Text>
-                    <Text style={styles.text2}>ou faça login com o Facebook</Text>
-                    <View style={styles.container2} >
-                    
-                    <TextInput placeholder='Nome completo' placeholderTextColor='#8B8C8E' style={styles.input}
-                        autoFocus={false}
-                        value={this.state.name}
-                        onChangeText={ name => this.setState({ name })}/>
+                        <Text style={styles.text1}>Estamos quase lá</Text>
+                        <Text style={styles.text2}>Digite os seus dados abaixo</Text>
+                        <Text style={styles.text2}>ou faça login com o Facebook</Text>
+                        <View style={styles.container2} >
+                        
+                        <TextInput placeholder='Nome completo' placeholderTextColor='#8B8C8E' style={styles.input}
+                            autoFocus={false}
+                            value={this.state.name}
+                            onChangeText={ name => this.setState({ name })}/>
 
-                    <TextInput placeholder='Email' placeholderTextColor='#8B8C8E' style={styles.input}
-                        autoFocus={false}
-                        value={this.state.email}
-                        onChangeText={ email => this.setState({ email })}/>
+                        <TextInput placeholder='Email' placeholderTextColor='#8B8C8E' style={styles.input}
+                            autoFocus={false}
+                            value={this.state.email}
+                            onChangeText={ email => this.setState({ email })}/>
 
-                    <TextInput placeholder='Senha' placeholderTextColor='#8B8C8E' style={styles.input}
-                        secureTextEntry={true} value={this.state.password}
-                        onChangeText={ password => this.setState({ password })}/>
+                        <TextInput placeholder='Senha' placeholderTextColor='#8B8C8E' style={styles.input}
+                            secureTextEntry={true} value={this.state.password}
+                            onChangeText={ password => this.setState({ password })}/>
 
-                    <TextInput placeholder='Repita sua senha' placeholderTextColor='#8B8C8E' style={styles.input}
-                        secureTextEntry={true} value={this.state.confirmationPassword}
-                        onChangeText={ confirmationPassword => this.setState({ confirmationPassword })}/>
+                        <TextInput placeholder='Repita sua senha' placeholderTextColor='#8B8C8E' style={styles.input}
+                            secureTextEntry={true} value={this.state.confirmationPassword}
+                            onChangeText={ confirmationPassword => this.setState({ confirmationPassword })}/>
 
-                    <View style={styles.containerImage} onPress={() => { this.takeProfileImage() }} >
-                        <Image 
-                            source={ this.state.image }
-                            style={styles.image}/>
-                    </View>   
-                    
+                        <View style={styles.containerImage} onPress={() => { this.takeProfileImage() }} >
+                            <Image 
+                                source={ this.state.image }
+                                style={styles.image}/>
+                        </View>   
+                        
 
-                    <TouchableOpacity 
-                        onPress={() => { this.takeProfileImage() }}
-                        style={styles.buttom}>
-                        <Text style={styles.buttomText}>Anexar</Text>
-                    </TouchableOpacity>  
+                        <TouchableOpacity 
+                            onPress={() => { this.takeProfileImage() }}
+                            style={styles.buttom}>
+                            <Text style={styles.buttomText}>Anexar</Text>
+                        </TouchableOpacity>  
 
-                    <TouchableOpacity 
-                        onPress={() => { this.props.onCreateUser(this.state) }} 
-                        style={styles.buttom}>
-                        <Text style={styles.buttomText}>Ok</Text>
-                    </TouchableOpacity> 
+                        <TouchableOpacity 
+                            onPress={() => { this.props.onCreateUser(this.state) }} 
+                            style={styles.buttom}>
+                            <Text style={styles.buttomText}>Ok</Text>
+                        </TouchableOpacity> 
 
-                </View>
-            </View>
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
         )
     }
 }

@@ -6,6 +6,11 @@ import {
 } from './actionsTypes'
 import { setMessage } from './messageAction'
 import auth from '@react-native-firebase/auth'
+import { 
+    LoginManager,
+    AccessToken
+ } from 'react-native-fbsdk'
+
 import firestore from '@react-native-firebase/firestore'
 import storage from '@react-native-firebase/storage'
 import fileSystem from 'react-native-fs'
@@ -82,7 +87,7 @@ export const userLoaded = () => {
     }
 }
 
-export const login = user => {
+export const loginWithEmail = user => {
     return dispatch => {
         dispatch(loadingUser())
         auth().signInWithEmailAndPassword(user.email, user.password)
@@ -102,5 +107,43 @@ export const login = user => {
                 text: error.message
             }))
           });
+    }
+}
+
+export const loginWithFacebook = () => {
+    return dispatch => {
+        dispatch(setMessage({
+            title: 'LOGAR',
+            text: "TESTE"
+        }))
+        dispatch(loadingUser())
+        LoginManager.logInWithPermissions(['public_profile', 'email'])
+        .then(result => {
+              if (result.isCancelled) {
+                alert('Login was cancelled');
+              } else {
+                AccessToken.getCurrentAccessToken()
+                .then(data => {
+                    dispatch(setMessage({
+                        title: 'Sucesso',
+                        text: data.accessToken
+                    }))
+                    const credential = auth.FacebookAuthProvider.credential(data.accessToken)
+                    auth().signInWithCredential(credential)
+                    .then(userCredential => {
+                        dispatch(userLogged(userCredential.user))
+                        dispatch(userLoaded())
+                        dispatch(setMessage({
+                            title: 'Sucesso',
+                            text: userCredential.user.email
+                        }))
+                    })
+                })
+              }
+            },
+            error => {
+              alert('Login failed with error: ' + error)
+            }
+          );
     }
 }

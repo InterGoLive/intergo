@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { login } from '../store/actions/userAction'
+import { loginWithEmail, loginWithFacebook } from '../store/actions/userAction'
 import {
     StyleSheet,
     Text,
@@ -8,13 +8,8 @@ import {
     TouchableOpacity,
     TextInput
 } from 'react-native'
-// import auth from '@react-native-firebase/auth'
-// import { 
-//     LoginManager,
-//     AccessToken
-//  } from 'react-native-fbsdk'
 
-//  import InstagramLogin from 'react-native-instagram-login'
+ import InstagramLogin from 'react-native-instagram-login'
 
 
 class Login extends Component {
@@ -25,28 +20,12 @@ class Login extends Component {
     }
 
     login = () => {
-        this.props.onLogin({...this.state})
+        this.props.onLoginWithEmail({...this.state})
     }
 
-    // loginWithFacebook = () => {
-    //     LoginManager.logInWithPermissions(['public_profile', 'email']).then(
-    //         function(result) {
-    //           if (result.isCancelled) {
-    //             alert('Login was cancelled');
-    //           } else {
-    //             AccessToken.getCurrentAccessToken().then(data => {
-    //                 const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken)
-    //                 firebase.auth().signInWithCredential(credential).then(() => {
-
-    //                 })
-    //             })
-    //           }
-    //         },
-    //         function(error) {
-    //           alert('Login failed with error: ' + error);
-    //         }
-    //       );
-    // }
+    loginWithFacebook = () => {
+        this.props.onLoginWithFacebook()
+    }
 
     render() {
         return (
@@ -78,6 +57,10 @@ class Login extends Component {
                         style={styles.register}>Cadastre-se</Text>
                     <Text style={styles.forget}>Esqueceu a senha?</Text>
                 </View>
+
+                <TouchableOpacity onPress={this.loginWithFacebook} style={styles.button}>
+                    <Text style={styles.buttonText}>ENTRAR</Text>
+                </TouchableOpacity>
 
                 {/* <View>
                     <TouchableOpacity onPress={()=> this.instagramLogin.show()}>
@@ -176,7 +159,8 @@ const mapStateToProps = ({ user }) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLogin: user => dispatch(login(user))
+        onLoginWithEmail: user => dispatch(loginWithEmail(user)),
+        onLoginWithFacebook: () => dispatch(loginWithFacebook())
     }
 }
 
