@@ -5,35 +5,48 @@ import {
     StyleSheet,
     Text,
     View,
-    TouchableOpacity
+    Image,
+    FlatList
 } from 'react-native'
-import { Gravatar } from 'react-native-gravatar'
-import HeaderProfile from '../components/HeaderProfile'
+import Header from '../components/Header'
+import Event from '../components/EventTeam2'
+
 
 class MatchDetail extends Component {
-
-    componentDidUpdate = prevProps => {
-        if(prevProps.email != '' && this.props.email == '') {
-            this.props.navigation.navigate('Login')
-        }
-    }
-
-    logout = () => {
-        this.props.onLogout()
-    }
-
     render() {
-        const options = { email: this.props.email, secure: true }
+        let image1 =  { uri: this.props.match.team1ImageURL }
+        let image2 = { uri: this.props.match.team2ImageURL }
         return (
             <View style={styles.container}>
-                <HeaderProfile />
-                <Gravatar options={options} style={styles.avatar} />
-                {/* <Text style={styles.nickname}>{this.props.user.name}</Text> */}
-                <Text style={styles.email}>{this.props.email}</Text>
-                <TouchableOpacity onPress={this.logout} 
-                    style={styles.buttom}>
-                    <Text style={styles.buttomText}>Sair</Text>
-                </TouchableOpacity>
+                <Header title={ this.props.match.modality + " " + this.props.match.gender } />
+                <Text style={styles.textLive}>Ao vivo</Text>
+                <View style={ {alignItems: 'center', justifyContent: 'space-around', flexDirection: 'row' } } >
+                    <Image source={image1} style={styles.image}/>
+                    <View style={ { alignItems: 'center' } } >
+                        <View style={ { flexDirection: 'row' } } >
+                            <Text style={ styles.textScore } >{this.props.match.team1Score}</Text>
+                            <Text style={ styles.textScore } >:</Text>
+                            <Text style={ styles.textScore } >{this.props.match.team2Score}</Text>
+                        </View>
+                        <Text style={ styles.textPeriod } >2 tempo</Text>
+                    </View>
+                    <Image source={image2} style={styles.image}/>
+                </View>
+                <View style={ { flexDirection: 'row' } } >
+                    <Text style={styles.textLocation}>Local: </Text>
+                    <Text style={styles.textLocation}>{this.props.match.team1}</Text>
+                </View>
+                <Text style={styles.textLive}>Lance a lance</Text>
+                <FlatList
+                    data={this.props.matches}
+                    keyExtractor={item => `${item.id}`}
+                    renderItem={({item}) => (
+                        <TouchableOpacity>
+                            <Event key={item.id} {...item} />
+                        </TouchableOpacity>
+                    )}
+                    />
+
             </View>
         )
     }
@@ -46,43 +59,41 @@ const styles = StyleSheet.create({
         backgroundColor: '#16191D'
 
     },
-    avatar: {
-        width: 70,
-        height: 70,
-        borderRadius: 75,
-        marginTop: 58
-    },
-    nickname: {
-        marginTop: 10,
+    textLive: {
+        marginTop: 20,
         fontSize: 16,
-        fontFamily: 'Overpass-Regular',
-        color: '#FFF'
+        color: '#06EFB3'
     },
-    email: {
-        fontSize: 8,
-        color: '#FFF'
+    textLocation: {
+        marginTop: 5,
+        fontSize: 12,
+        color: '#707070'
     },
-    buttom: {
-        marginTop: 30,
-        padding: 10,
-        backgroundColor: '#FF5957'
+    textScore: {
+        fontSize: 28,
+        color: '#fff'
     },
-    buttomText: {
-        fontSize: 20,
-        color: '#FFF'
+    textPeriod: {
+        fontSize: 14,
+        color: '#90B7F2'
+    },
+    image: {
+        width: 60,
+        height: 60,
+        margin: 10
     }
 })
 
-const mapStateToProps = ({ user }) => {
+const mapStateToProps = ({ matches }) => {
     return {
-        email: user.email
+        match: matches.match
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onLogout: () => dispatch(doLogout())
-    }
-}
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         onLogout: () => dispatch(doLogout())
+//     }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MatchDetail)
+export default connect(mapStateToProps, null)(MatchDetail)

@@ -6,11 +6,12 @@ import {
     Text,
     View,
     TouchableOpacity,
-    TextInput
+    Image,
+    TextInput,
+    ScrollView, 
+    SafeAreaView
 } from 'react-native'
-
- import InstagramLogin from 'react-native-instagram-login'
-
+import facebookIcon from '../../assets/images/facebook_icon.png'
 
 class Login extends Component {
     componentDidUpdate = prevProps => {
@@ -29,7 +30,7 @@ class Login extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <Text style={styles.welcomeText1}>Seja Bem-Vindx</Text>
                 <View style={styles.rowContainer}>
                     <Text style={styles.welcomeText1}>ao </Text>
@@ -58,25 +59,10 @@ class Login extends Component {
                     <Text style={styles.forget}>Esqueceu a senha?</Text>
                 </View>
 
-                <TouchableOpacity onPress={this.loginWithFacebook} style={styles.button}>
-                    <Text style={styles.buttonText}>ENTRAR</Text>
+                <TouchableOpacity onPress={this.loginWithFacebook} style={styles.facebookButton}>
+                    <Image style={ styles.facebookButton } source={facebookIcon} />
                 </TouchableOpacity>
-
-                {/* <View>
-                    <TouchableOpacity onPress={()=> this.instagramLogin.show()}>
-                        <Text style={{color: 'white'}}>Login</Text>
-                    </TouchableOpacity>
-                    <InstagramLogin
-                        ref={ref => (this.instagramLogin = ref)}
-                        appId='292577138395482'
-                        appSecret='ba3fe08289552d1d5dccc8ba2f6b5361'
-                        redirectUrl='your-redirect-Url'
-                        scopes={['user_profile', 'user_media']}
-                        onLoginSuccess={ this.setIgToken }
-                        onLoginFailure={(data) => console.log(data)}/>
-                </View> */}
-
-            </View>
+            </SafeAreaView>
         )
     }
 }
@@ -118,7 +104,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#22D48D'
     },
     facebookButton: {
-        marginTop: 50,
+        width: 50,
+        height: 50,
+        marginTop: 10
     },
     buttonText: {
         fontSize: 18,

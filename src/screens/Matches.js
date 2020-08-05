@@ -4,8 +4,8 @@ import  {StyleSheet, FlatList, View, Text, Image, TouchableOpacity, ScrollView, 
 import MatchLive from '../components/MatchLive'
 import Match from '../components/MatchHome'
 import ModalityList from '../components/ModalityList'
-import { fetchMatches } from '../store/actions/matchesAction'
-import { fetchModalities } from '../store/actions/modalitiesAction'
+import DayFilter from '../components/DayFilterList'
+import { fetchMatches, setMatch } from '../store/actions/matchesAction'
 import { connect } from 'react-redux'
 import arrowLeft from '../../assets/images/arrow_left.png'
 import arrowRight from '../../assets/images/arrow_right.png'
@@ -16,8 +16,14 @@ class Matches extends Component {
         this.props.onFetchMatches(null)
     }
 
+    componentDidUpdate = () => {
+        if(this.props.match != null) {
+            this.props.navigation.navigate('MatchDetail')
+        }
+    }
+
     onMatchSelected(item) {
-        console.log('Selected Item :',item);
+        this.props.onMatchSelected(item)
     }
 
     // onModalitylected(modality, index) {
@@ -57,7 +63,8 @@ class Matches extends Component {
                     </View>
                     <View style={ styles.containerList } >
                         <View style={ styles.containerHorizontalListHeader } >
-                            <Text style={ styles.textTitle } > Próximos ou encerrados </Text>
+                            <Text style={ styles.textTitle } > Tabela </Text>
+                            <DayFilter/>
                         </View>
                         <FlatList
                             data={this.props.matches}
@@ -81,8 +88,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#16191D'
     },
     containerHorizontalListHeader: {
+        flex:1,
         flexDirection: 'row', 
-        justifyContent: 'space-between'
+        alignItems: 'center'
     },
     containerList: {
         borderBottomWidth: 0.5,
@@ -104,6 +112,7 @@ const styles = StyleSheet.create({
     },
     textTitle: {
         marginLeft: 20,
+        marginRight: 20,
         fontSize: 20,
         fontFamily: 'Overpass-Regular',
         color: '#fff',
@@ -118,6 +127,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({ matches }) => {
     return {
         matches: matches.matches,
+        match: matches.match
+        
     }
 }
 
@@ -127,7 +138,8 @@ const mapDispatchToProps = dispatch => {
         onMessage: (title, text) => dispatch(setMessage({
             title: title,
             text: text
-        }))
+        })),
+        onMatchSelected: match => dispatch(setMatch(match))
     }
 }
 

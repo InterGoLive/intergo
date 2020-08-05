@@ -22,7 +22,7 @@ class ModalityList extends Component {
         this.props.onFetchModalities()
     }
 
-    onModalitylected(modality, index) {
+    onModalitylected(index) {
         this.setState({
             modalitySelected: index
         });
@@ -42,9 +42,10 @@ class ModalityList extends Component {
                     <FlatList
                         horizontal={true}
                         data={this.props.modalities}
+                        showsHorizontalScrollIndicator={false}
                         keyExtractor={item => `${item.id}`}
                         renderItem={({item, index}) => (
-                            <TouchableOpacity onPress={ () => this.onModalitylected(item, index)}>
+                            <TouchableOpacity onPress={ () => this.onModalitylected(index)}>
                                 <Modality key={item.id} {...item} index={index} modalitySelected={this.state.modalitySelected} />
                             </TouchableOpacity>
                         )}

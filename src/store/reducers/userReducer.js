@@ -22,7 +22,6 @@ const reducer = (state = initialState, action) => {
                 photoURL: action.payload.photoURL,
                 email: action.payload.email,
                 password:''
-                
             }
 
         case USER_LOGGED_OUT:

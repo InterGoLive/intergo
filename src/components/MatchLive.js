@@ -7,7 +7,6 @@ import {
     Image,
     Dimensions
 } from 'react-native'
-// import { AnimatedCircularProgress } from 'react-native-circular-progress'
 import ProgressBar from 'react-native-progress/Bar'
 
 class MatchLive extends Component {

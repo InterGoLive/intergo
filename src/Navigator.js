@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import Matches from './screens/Matches'
 import RankingTeams from './screens/RankingTeams'
 import Profile from './screens/Profile'
+import MatchDetail from './screens/MatchDetail'
 
 const mainRouter = {
     Matches: {
@@ -89,7 +90,9 @@ const router = createStackNavigator({
     Splash: {screen: Splash, navigationOptions: { title: 'Splash', headerShown: false }},
     Login: {screen: Login, navigationOptions: { title: 'Login', headerShown: false }},
     Register: {screen: Register, navigationOptions: { title: 'Register', headerShown: false }},
-    MainNavigator
+    MainNavigator,
+    MatchDetail: {screen: MatchDetail, navigationOptions: { title: 'Detalhe', headerShown: false }},
+
 }, {
     initialRouteName: 'Splash',
     tabBarOptions: {

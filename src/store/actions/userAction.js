@@ -96,7 +96,7 @@ export const loginWithEmail = user => {
             dispatch(userLoaded())
             dispatch(setMessage({
                 title: 'Sucesso',
-                text: userCredential.user.email
+                text: userCredential.user.displayName
             }))
         })
         .catch(error => {
@@ -112,10 +112,6 @@ export const loginWithEmail = user => {
 
 export const loginWithFacebook = () => {
     return dispatch => {
-        dispatch(setMessage({
-            title: 'LOGAR',
-            text: "TESTE"
-        }))
         dispatch(loadingUser())
         LoginManager.logInWithPermissions(['public_profile', 'email'])
         .then(result => {
@@ -124,10 +120,6 @@ export const loginWithFacebook = () => {
               } else {
                 AccessToken.getCurrentAccessToken()
                 .then(data => {
-                    dispatch(setMessage({
-                        title: 'Sucesso',
-                        text: data.accessToken
-                    }))
                     const credential = auth.FacebookAuthProvider.credential(data.accessToken)
                     auth().signInWithCredential(credential)
                     .then(userCredential => {
@@ -135,7 +127,7 @@ export const loginWithFacebook = () => {
                         dispatch(userLoaded())
                         dispatch(setMessage({
                             title: 'Sucesso',
-                            text: userCredential.user.email
+                            text: userCredential.user.displayName
                         }))
                     })
                 })

@@ -6,12 +6,14 @@ import {
     Platform,
     Image
 } from 'react-native'
+import arrowLeft from '../../assets/images/arrow_left.png'
 
 class Header extends Component {
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.rowContainer}>
+                    <Image source={arrowLeft} style={styles.imageBack} onPress={ () => this.props.navigation.goBack(null)} />
                     <Image source={this.props.icon} style={styles.image} />
                     <Text style={styles.title}>{this.props.title}</Text>
                 </View>
@@ -31,10 +33,16 @@ class Header extends Component {
      },
      rowContainer: {
          flexDirection: 'row',
+         flex: 1,
          alignItems: 'center'
      },
+     imageBack: {
+         marginLeft: 20,
+        height: 20,
+        width: 20,
+        resizeMode: 'contain'
+    },
      image: {
-         marginLeft: 61,
          height: 20,
          width: 20,
          resizeMode: 'contain'

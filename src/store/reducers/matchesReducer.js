@@ -1,7 +1,11 @@
-import { SET_MATCHES } from '../actions/actionsTypes'
+import { 
+    SET_MATCHES,
+    SET_MATCH 
+} from '../actions/actionsTypes'
 
 const initialState = {
-    matches: []
+    matches: [],
+    match: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -11,6 +15,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 matches: action.payload,
             }
+
+        case SET_MATCH:
+            return {
+                ...state,
+                match: action.payload,
+            }    
 
         default:
             return state        

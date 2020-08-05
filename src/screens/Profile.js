@@ -7,7 +7,7 @@ import {
     View,
     TouchableOpacity
 } from 'react-native'
-import { Gravatar } from 'react-native-gravatar'
+import UserAvatar from 'react-native-user-avatar'
 import Header from '../components/Header'
 import icon from '../../assets/images/header_profile.png'
 
@@ -24,12 +24,13 @@ class Profile extends Component {
     }
 
     render() {
-        const options = { email: this.props.email, secure: true }
         return (
             <View style={styles.container}>
                 <Header title={ 'Perfil' } icon={icon} />
-                <Gravatar options={options} style={styles.avatar} />
-                {/* <Text style={styles.nickname}>{this.props.user.name}</Text> */}
+                <View>
+                    <UserAvatar style={ styles.avatar }  size={70} name={this.props.name} src={this.props.photoURL} />
+                </View>
+                <Text style={styles.nickname}>{this.props.name}</Text>
                 <Text style={styles.email}>{this.props.email}</Text>
                 <TouchableOpacity onPress={this.logout} 
                     style={styles.buttom}>
@@ -48,11 +49,16 @@ const styles = StyleSheet.create({
 
     },
     avatar: {
-        width: 70,
-        height: 70,
-        borderRadius: 75,
-        marginTop: 58
+        marginTop: 20
     },
+    // circleShape: {
+    //     width: 100,
+    //     height: 100,
+    //     borderRadius: 50,
+    //     borderWidth: 1,
+    //     borderColor:'#707070',
+    //     backgroundColor: '#16191D'
+    // },
     nickname: {
         marginTop: 10,
         fontSize: 16,
@@ -76,7 +82,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ user }) => {
     return {
-        email: user.email
+        email: user.email,
+        name: user.name,
+        photoURL: user.photoURL
     }
 }
 
