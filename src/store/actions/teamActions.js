@@ -9,9 +9,9 @@ export const setTeams = teams => {
       
 }
 
-export const fetchTeams = () => {
+export const fetchTeams = (type, year) => {
     return dispatch => {
-        const ref = firestore().collection('teams').orderBy('geral_2019','desc')
+        const ref = firestore().collection('teams').orderBy(type + '_' + year,'desc')
         ref.onSnapshot(querySnapshot => {
             const list = [];
             querySnapshot.forEach(doc => {

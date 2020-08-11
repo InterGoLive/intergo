@@ -1,11 +1,10 @@
+import { AsyncStorage } from 'react-native' 
 import { 
     BACKGROUND_NOTIFICATION,
-    FOREGROUND_NOTIFICATION,
-    REGISTER_DEVICE_FCM
+    FOREGROUND_NOTIFICATION
  } from './actionsTypes'
 
 import messaging from '@react-native-firebase/messaging'
-
 export const getForegroundNotification = (notification) => {
     return {
         type: FOREGROUND_NOTIFICATION,
@@ -26,8 +25,9 @@ export const setOnForegroundNotification = () => {
     return dispatch => {
         messaging().onMessage(async remoteMessage => {
             console.log('FCM Message Data:', remoteMessage.data);
-       
-            // Update a users messages list using AsyncStorage
+            Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+
+            // // Update a users messages list using AsyncStorage
             const currentMessages = await AsyncStorage.getItem('messages');
             const messageArray = JSON.parse(currentMessages);
             messageArray.push(remoteMessage.data);
@@ -43,11 +43,5 @@ export const setOnBackgroundNotification = () => {
         messaging().setBackgroundMessageHandler(async remoteMessage => {
             dispatch(getBackgroundNotification(remoteMessage.data))
           });
-    }
-}
-
-export const registerDevice = () => {
-    return dispatch => {
-        
     }
 }

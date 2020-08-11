@@ -13,28 +13,27 @@ class MatchHome extends Component {
         let image2 = { uri: this.props.team2ImageURL }
         return (
             <View style={styles.containerMatch } >
-                <View style={ { alignItems: 'center', justifyContent: 'center' } } >
-                    <Text style={ styles.textDay }  > {this.props.hour}h </Text>
-                    <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textDay }> {this.props.day.replace(/-Feira/g, '')} </Text>
-                </View>
-                <View style={ { height: '80%', width: 2, backgroundColor: '#333943', marginLeft: 10, marginRight: 10 } } />
-                <View style={ { flex: 1 } } >
-                    <View style={ { flexDirection: 'row', justifyContent: 'space-between' } } >
-                        <View style={ { flexDirection: 'row' } }   >
-                            <Image source={image1} style={styles.image}/>
-                            <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textTeam }> {this.props.team1} </Text>
-                        </View>
-                        <Text style={ styles.textScore }  > {this.props.team1Score} </Text>
+                    <View style={ { alignItems: 'center', justifyContent: 'center' } } >
+                        <Text style={ styles.textDay }  > {this.props.hour}h </Text>
+                        <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textDay }> {this.props.day.replace(/-Feira/g, '')} </Text>
                     </View>
-                    <View style={ { flexDirection: 'row', marginTop: 5, justifyContent: 'space-between' } } >
-                        <View style={ { flexDirection: 'row' } }   >
-                            <Image source={image2} style={styles.image}/>
-                            <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textTeam }> {this.props.team2} </Text>
+                    <View style={ { height: '80%', width: 2, backgroundColor: '#333943', marginLeft: 10, marginRight: 10 } } />
+                    <View style={ { flex: 1 } } >
+                        <View style={ { flexDirection: 'row', justifyContent: 'space-between' } } >
+                            <View style={ { flexDirection: 'row' } }   >
+                                <Image source={image1} style={styles.image}/>
+                                <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textTeam }> {this.props.team1} </Text>
+                            </View>
+                            <Text style={ styles.textScore }  > {this.props.team1Score} </Text>
                         </View>
-                        <Text style={ styles.textScore }  > {this.props.team2Score} </Text>
-                    </View>
-                </View>
-                
+                        <View style={ { flexDirection: 'row', marginTop: 5, justifyContent: 'space-between' } } >
+                            <View style={ { flexDirection: 'row' } }   >
+                                <Image source={image2} style={styles.image}/>
+                                <Text numberOfLines={1} ellipsizeMode='tail' style={ styles.textTeam }> {this.props.team2} </Text>
+                            </View>
+                            <Text style={ styles.textScore }  > {this.props.team2Score} </Text>
+                        </View>
+                    </View>                
             </View>
         )
     }

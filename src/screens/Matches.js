@@ -14,6 +14,7 @@ import { setMessage } from '../store/actions/messageAction'
 class Matches extends Component {
     componentDidMount = () => {
         this.props.onFetchMatches(null)
+        // this.getAllImages()
     }
 
     componentDidUpdate = () => {
@@ -25,6 +26,20 @@ class Matches extends Component {
     onMatchSelected(item) {
         this.props.onMatchSelected(item)
     }
+
+    // getAllImages() {
+    //     const reference = storage().ref('teams');
+
+    //     return reference.list().then(result => {
+    //         var images = ''
+    //         result.items.forEach(ref => {
+    //           console.log(ref.fullPath);
+    //           images += ref.fullPath + '\n'
+    //         });
+
+    //         alert(images)        
+    //       });
+    // }
 
     // onModalitylected(modality, index) {
     //     this.setState({

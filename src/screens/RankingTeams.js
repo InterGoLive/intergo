@@ -1,14 +1,18 @@
 import React, {Component} from 'react'
 import Header from '../components/Header'
-import  {StyleSheet, FlatList, View, SafeAreaView, TouchableOpacity } from 'react-native'
+import  {StyleSheet, FlatList, View, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native'
 import { fetchTeams } from '../store/actions/teamActions'
 import { connect } from 'react-redux'
 import TeamRanking from '../components/TeamRanking'
 import ModalityList from '../components/ModalityList'
 
 class RankingTeams extends Component {
+    state = {
+        type: 'geral',
+        year: '2019'
+    }
     componentDidMount = () => {
-        this.props.onFetchTeams()
+        this.props.onFetchTeams(this.state.type, this.state.year)
     }
 
     onTeamSelected(item) {
@@ -19,8 +23,11 @@ class RankingTeams extends Component {
         return (
             <SafeAreaView style={styles.container}>
                 <Header title={ 'Classificação' } />
-                <View style={ { margin: 20 } } >
-                    <FlatList
+                <ScrollView>
+                
+                    <ModalityList/>
+                    <View style={ { margin: 20 } } >
+                        <FlatList
                             data={this.props.teams}
                             keyExtractor={item => `${item.id}`}
                             renderItem={({item,index}) => (
@@ -32,8 +39,8 @@ class RankingTeams extends Component {
                                 
                             )}
                             />
-                </View>
-                
+                    </View>
+                </ScrollView>
             </SafeAreaView>
         )
     }
@@ -45,7 +52,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#16191D'
     },
     separator: {
-        flex: 1, 
         borderBottomWidth: 1, 
         borderColor: '#2B323B'
     },
@@ -59,7 +65,7 @@ const mapStateToProps = ({ teams }) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchTeams: () => dispatch(fetchTeams())
+        onFetchTeams: (type, year) => dispatch(fetchTeams(type, year))
     }
 }
 

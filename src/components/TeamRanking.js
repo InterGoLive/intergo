@@ -6,10 +6,15 @@ import {
     Image
 } from 'react-native'
 
+
 class TeamRanking extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <SkeletonContent
+                    containerStyle={{flex: 1 }}
+                    isLoading={true}
+                >
                 <View style={ { flexDirection: 'row', alignItems: 'center', } }>
                     <Text style={[
                         styles.textScore, 
@@ -22,6 +27,9 @@ class TeamRanking extends Component {
                 <Text style={[
                         styles.textScore, 
                         {color: this.props.index  < 4 ? '#22D48D' : '#fff'}]}> {this.props.geral_2019} </Text>
+
+        </SkeletonContent>
+
             </View>
         )
     }

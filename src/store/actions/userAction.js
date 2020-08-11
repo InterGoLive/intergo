@@ -12,7 +12,6 @@ import {
  } from 'react-native-fbsdk'
 
 import firestore from '@react-native-firebase/firestore'
-import storage from '@react-native-firebase/storage'
 import fileSystem from 'react-native-fs'
 
 export const userLogged = user => {
