@@ -3,9 +3,9 @@ import {
     StyleSheet,
     Image
 } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
 import Login from './screens/Login'
 import Register from './screens/Register'
 import Splash from './screens/Splash'
@@ -15,69 +15,91 @@ import RankingTeams from './screens/RankingTeams'
 import Profile from './screens/Profile'
 import MatchDetail from './screens/MatchDetail'
 
-const LoginStack = createStackNavigator();
-
-function LoginStackScreen() {
-  return (
-    <LoginStack.Navigator>
-      <LoginStack.Screen name="Login" component={Login} />
-      <LoginStack.Screen name="Register" component={Register} />
-    </LoginStack.Navigator>
-  );
+const mainRouter = {
+    Matches: {
+        name: 'Matches',
+        screen: Matches,
+        navigationOptions: {
+            title: 'Início',
+            headerShown: false,
+            tabBarIcon: ({ tintColor }) => 
+                <Image source={require('../assets/images/tab_home.png')} style={styles.imageHome} />
+        }
+    }, 
+    RankingTeams: {
+        name: 'Ranking',
+        screen: RankingTeams,
+        navigationOptions: {
+            title: 'Classificação',
+            tabBarIcon: ({ tintColor }) => 
+                <Image source={require('../assets/images/tab_ranking.png')} style={styles.imageRanking} />
+        }
+    }, 
+    RankingFans: {
+        name: 'Fans',
+        screen: Matches,
+        navigationOptions: {
+            title: 'Torcidômetro',
+            headerShown: false,
+            tabBarIcon: ({ tintColor }) => 
+                <Icon name='chart' size={20} color={ tintColor } />
+        }
+    }, 
+    Profile: {
+        name: 'Profile',
+        screen: Profile,
+        navigationOptions: {
+            title: 'Perfil',
+            tabBarIcon: ({ tintColor: color }) => 
+                <Icon name='user' size={20} color={ color } />
+        }
+    }
 }
 
-function LoginStackScreen() {
-  return (
-    <LoginStack.Navigator>
-      <LoginStack.Screen name="Login" component={HomeScreen} />
-      <LoginStack.Screen name="Register" component={DetailsScreen} />
-    </LoginStack.Navigator>
-  );
+const styles = StyleSheet.create({
+    imageHome: {
+        width: 20,
+        height: 20,
+        resizeMode: 'contain'
+    },
+    imageRanking: {
+        width: 20,
+        height: 20,
+        resizeMode: 'contain'
+    }
+})
+
+const mainRouterConfig = {
+    initialRouteName: 'Matches',
+    tabBarOptions: {
+        showLabel: true,
+        activeTintColor: '#22D48D',
+        inactiveTintColor: '#8B8C8E',
+        style: {
+            backgroundColor: '#101317',
+          }
+    },
+    navigationOptions: {
+        headerShown: false
+    }
 }
 
-const InitStack = createStackNavigator();
+const MainNavigator = createBottomTabNavigator(mainRouter, mainRouterConfig)
 
-function InitStackScreen() {
-    return (
-      <InitStack.Navigator>
-        <InitStack.Screen name="Splash" component={Splash} />
-        <InitStack.Screen name="LoginScreen" component={LoginStackScreen} />
-      </InitStack.Navigator>
-    );
-  }
+const router = createStackNavigator({
+    Splash: {screen: Splash, navigationOptions: { title: 'Splash', headerShown: false }},
+    Login: {screen: Login, navigationOptions: { title: 'Login', headerShown: false }},
+    Register: {screen: Register, navigationOptions: { title: 'Register', headerShown: false }},
+    MainNavigator,
+    MatchDetail: {screen: MatchDetail, navigationOptions: { title: 'Detalhe', headerShown: false }},
 
-const HomeStack = createStackNavigator();
+}, {
+    initialRouteName: 'Splash',
+    tabBarOptions: {
+        showLabel: true,
+        activeTintColor: '#22D48D',
+        inactiveTintColor: '#8B8C8E',
+    }
+})
 
-function HomeStackScreen() {
-  return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen name="Home" component={Matches} />
-      <HomeStack.Screen name="MatchDetail" component={MatchDetail} />
-    </HomeStack.Navigator>
-  );
-}
-
-const Tab = createBottomTabNavigator();
-
-function MainStackScreen() {
-    return (
-      <HomeStack.Navigator>
-        <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="Ranking" component={RankingTeams} />
-        <Tab.Screen name="Profile" component={Profile} />
-      </HomeStack.Navigator>
-    );
-  }
-
-const MainStack = createStackNavigator();
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <MainStack.Navigator>
-        <MainStack.Screen name="Init" component={InitStackScreen} />
-        <MainStack.Screen name="Main" component={MainStackScreen} />
-      </MainStack.Navigator>
-    </NavigationContainer>
-  );
-}
+export default createAppContainer(router);
